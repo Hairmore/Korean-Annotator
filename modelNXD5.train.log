@@ -1,0 +1,106 @@
+[2024-01-16 21:52:57 INFO] 
+amp: false
+batch_size: 3000
+bert: xlm-roberta-large
+bert_pooling: mean
+binarize: false
+buckets: 32
+build: true
+cache: false
+checkpoint: false
+clip: 5.0
+dev: /home/hairmore/Desktop/parser-main/dataset_conllu/train/NXD_data/devNXD.conllu
+device: '0'
+dist: ddp
+embed: glove-6b-100
+encoder: bert
+encoder_dropout: 0.1
+epochs: 5
+feat: null
+fix_len: 20
+lr: 5.0e-05
+lr_rate: 20
+max_len: null
+min_freq: 2
+mix_dropout: 0.0
+mlp_dropout: 0.33
+mode: train
+n_arc_mlp: 500
+n_bert_layers: 4
+n_rel_mlp: 100
+partial: false
+path: modelNXD5
+proj: false
+punct: false
+seed: 1
+test: /home/hairmore/Desktop/parser-main/dataset_conllu/train/NXD_data/testNXD.conllu
+threads: 16
+train: /home/hairmore/Desktop/parser-main/dataset_conllu/train/NXD_data/trainNXD.conllu
+tree: false
+update_steps: 4
+wandb: false
+warmup: 0.1
+workers: 0
+
+[2024-01-16 21:52:57 INFO] Building the fields
+[2024-01-16 21:52:59 INFO] CoNLL(
+ (words): SubwordField(vocab_size=250002, pad=<pad>, unk=<unk>, bos=<s>)
+ (texts): RawField()
+ (arcs): Field(bos=<bos>, use_vocab=False)
+ (rels): Field(vocab_size=49, bos=<bos>)
+)
+[2024-01-16 21:52:59 INFO] Building the model
+[2024-01-16 21:53:00 INFO] BiaffineDependencyModel(
+  (encoder): TransformerEmbedding(xlm-roberta-large, n_layers=4, n_out=1024, stride=256, pooling=mean, pad_index=1, finetune=True)
+  (encoder_dropout): Dropout(p=0.1, inplace=False)
+  (arc_mlp_d): MLP(n_in=1024, n_out=500, dropout=0.33)
+  (arc_mlp_h): MLP(n_in=1024, n_out=500, dropout=0.33)
+  (rel_mlp_d): MLP(n_in=1024, n_out=100, dropout=0.33)
+  (rel_mlp_h): MLP(n_in=1024, n_out=100, dropout=0.33)
+  (arc_attn): Biaffine(n_in=500, bias_x=True)
+  (rel_attn): Biaffine(n_in=100, n_out=49, bias_x=True, bias_y=True)
+  (criterion): CrossEntropyLoss()
+)
+
+[2024-01-16 21:53:00 INFO] Loading the data
+[2024-01-16 21:53:01 INFO] Caching the data to /tmp/tmp2envodmp/data.pt
+[2024-01-16 21:53:14 INFO] Caching the data to /tmp/tmps8bm6ekt/data.pt
+[2024-01-16 21:53:21 INFO] train: Dataset(n_sentences=90164, n_batches=1730, n_buckets=32)
+[2024-01-16 21:53:22 INFO] Caching the data to /tmp/tmp008x4mom/data.pt
+[2024-01-16 21:53:29 INFO] dev:   Dataset(n_sentences=30053, n_batches=571, n_buckets=32)
+[2024-01-16 21:53:29 INFO] test:  Dataset(n_sentences=29566, n_batches=570, n_buckets=32)
+
+[2024-01-16 21:53:29 INFO] Epoch 1 / 5:
+[2024-01-16 21:59:54 INFO] lr: 4.4424e-05 - loss: 0.0814
+[2024-01-16 22:00:44 INFO] dev:  loss: 0.3343 - UCM: 47.36% LCM: 36.55% UAS: 92.98% LAS: 90.47%
+[2024-01-16 22:01:33 INFO] test: loss: 0.3396 - UCM: 46.04% LCM: 35.05% UAS: 92.94% LAS: 90.28%
+[2024-01-16 22:01:38 INFO] 0:08:03.980974s elapsed (saved)
+
+[2024-01-16 22:01:38 INFO] Epoch 2 / 5:
+[2024-01-16 22:08:22 INFO] lr: 3.3299e-05 - loss: 0.0742
+[2024-01-16 22:09:12 INFO] dev:  loss: 0.3169 - UCM: 48.72% LCM: 37.92% UAS: 93.30% LAS: 90.87%
+[2024-01-16 22:10:00 INFO] test: loss: 0.3222 - UCM: 47.62% LCM: 36.75% UAS: 93.32% LAS: 90.76%
+[2024-01-16 22:10:06 INFO] 0:08:21.578008s elapsed (saved)
+
+[2024-01-16 22:10:06 INFO] Epoch 3 / 5:
+[2024-01-16 22:16:37 INFO] lr: 2.2174e-05 - loss: 0.0932
+[2024-01-16 22:17:28 INFO] dev:  loss: 0.3159 - UCM: 49.14% LCM: 38.68% UAS: 93.40% LAS: 91.07%
+[2024-01-16 22:18:15 INFO] test: loss: 0.3230 - UCM: 48.11% LCM: 37.47% UAS: 93.39% LAS: 90.92%
+[2024-01-16 22:18:21 INFO] 0:08:09.502880s elapsed (saved)
+
+[2024-01-16 22:18:21 INFO] Epoch 4 / 5:
+[2024-01-16 22:24:41 INFO] lr: 1.1048e-05 - loss: 0.0582
+[2024-01-16 22:25:29 INFO] dev:  loss: 0.3096 - UCM: 49.69% LCM: 39.28% UAS: 93.45% LAS: 91.16%
+[2024-01-16 22:26:16 INFO] test: loss: 0.3159 - UCM: 48.47% LCM: 37.97% UAS: 93.45% LAS: 91.05%
+[2024-01-16 22:26:22 INFO] 0:07:54.586690s elapsed (saved)
+
+[2024-01-16 22:26:22 INFO] Epoch 5 / 5:
+[2024-01-16 22:32:40 INFO] lr: -7.7081e-08 - loss: 0.0671
+[2024-01-16 22:33:27 INFO] dev:  loss: 0.3160 - UCM: 49.62% LCM: 39.16% UAS: 93.48% LAS: 91.20%
+[2024-01-16 22:34:14 INFO] test: loss: 0.3232 - UCM: 48.41% LCM: 37.92% UAS: 93.45% LAS: 91.04%
+[2024-01-16 22:34:20 INFO] 0:07:52.904219s elapsed (saved)
+
+[2024-01-16 22:34:26 INFO] Epoch 5 saved
+[2024-01-16 22:34:26 INFO] dev:  loss: 0.3160 - UCM: 49.62% LCM: 39.16% UAS: 93.48% LAS: 91.20%
+[2024-01-16 22:35:14 INFO] test: loss: 0.3232 - UCM: 48.41% LCM: 37.92% UAS: 93.45% LAS: 91.04%
+[2024-01-16 22:35:14 INFO] 0:40:22.552771s elapsed, 0:08:04.510554s/epoch
